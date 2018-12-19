@@ -1,7 +1,9 @@
 import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { RecaptchaLoaderService, RecaptchaModule } from 'ng-recaptcha';
 
@@ -19,7 +21,7 @@ export class PreloadedRecaptchaAPIService {
     this.ready = readySubject.asObservable();
 
     const interval = setInterval(() => {
-      if (typeof grecaptcha === 'undefined' || !(grecaptcha.render instanceof Function)) {
+      if (typeof grecaptcha === 'undefined') {
         return;
       }
 
@@ -36,7 +38,7 @@ export const service = new PreloadedRecaptchaAPIService();
   declarations: [PreloadApiDemoComponent],
   imports: [
     BrowserModule,
-    RecaptchaModule,
+    RecaptchaModule.forRoot(),
     DemoWrapperModule,
   ],
   providers: [

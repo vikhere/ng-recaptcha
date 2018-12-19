@@ -14,7 +14,7 @@ import { settings } from './forms-demo.data';
   bootstrap: [FormsDemoComponent],
   declarations: [FormsDemoComponent],
   imports: [
-    RecaptchaModule,
+    RecaptchaModule.forRoot(),
     RecaptchaFormsModule,
     BrowserModule,
     FormsModule,

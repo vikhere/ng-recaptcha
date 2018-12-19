@@ -17,7 +17,7 @@ import { settings } from './language-demo.data';
   declarations: [LanguageDemoComponent],
   imports: [
     BrowserModule,
-    RecaptchaModule,
+    RecaptchaModule.forRoot(),
     DemoWrapperModule,
   ],
   providers: [

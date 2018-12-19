@@ -15,15 +15,10 @@ ng-lint.json
 *.js.map
 
 # Other
-.github
-.editorconfig
-.nvmrc
-.travis.yml
-# Seems like changelog can't be ignored
-# CHANGELOG.md
-CONTRIBUTING.md
-yarn-error.log
 yarn.lock
-
-# Build files
-ng-recaptcha-*.tgz
+yarn-error.log
+CONTRIBUTING.md
+.travis.yml
+.editorconfig
+bin/
+.github

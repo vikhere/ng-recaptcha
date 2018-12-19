@@ -22,10 +22,7 @@ A simple, configurable, easy-to-start component for handling reCAPTCHA.
    * [Loading the reCAPTCHA API by yourself](#example-preload-api)
    * [Usage with `required` in forms](#example-forms)
    * [Working with invisible reCAPTCHA](#example-invisible)
-   * [Resizing](#example-resizing)
    * [SystemJS configuration](#example-systemjs)
-   * [Loading from a different location](#example-different-url)
-   * [Specifying nonce for Content-Security-Policy](#example-csp-nonce)
 
 ## <a name="installation"></a>Installation
 
@@ -51,7 +48,7 @@ import { MyApp } from './app.component.ts';
   declarations: [MyApp],
   imports: [
     BrowserModule,
-    RecaptchaModule,
+    RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
     // RecaptchaFormsModule, // if you need forms support
   ],
 })
@@ -84,7 +81,7 @@ platformBrowserDynamic().bootstrapModule(MyAppModule);
 
 ### <a name="playground"></a>Playground
 
-You can also play with [this Stackblitz demo](https://stackblitz.com/edit/ng-recaptcha-example) to get a feel of how this component can be used.
+You can also play with [this demo plunk](https://plnkr.co/edit/JNVNl0WJl3bFuWtt2O9i?p=preview) to get a feel of how this component can be used.
 
 ## <a name="forms-ready"></a>Working with `@angular/forms`
 
@@ -311,16 +308,6 @@ Normally you would only submit a form when recaptcha response has been received.
 }
 ```
 
-### <a name="example-resizing"></a>Resizing
-
-Making reCAPTCHA responsive is sometimes necessary, especially when working with mobile devices. You can use css-transforms to achieve that as in [this StackOverflow answer](https://stackoverflow.com/a/29521983/2645305), which is also ell-described in [this blog post](https://geekgoddess.com/how-to-resize-the-google-nocaptcha-recaptcha/). You can also take a look at a [live example](https://stackblitz.com/edit/ng-recaptcha-example-uncvxq?file=src/app/app.component.html) of how this might be implemented. This boils down to
-
-```html
-<div style="transform:scale(0.7);transform-origin:0;">
-  <re-captcha></re-captcha>
-</div>
-```
-
 ### <a name="example-systemjs"></a>SystemJS configuration
 
 To configure the package to work with SystemJS, you would configure it approximately like that (assuming you've installed `ng-recaptcha` using `npm`):
@@ -340,38 +327,4 @@ To configure the package to work with SystemJS, you would configure it approxima
     },
   });
 })();
-```
-
-### <a name="example-different-url"></a>Loading from a different location
-
-Since `"google.com"` domain might be unavailable in some countries, reCAPTCHA core team has a solution for that - using `"recaptcha.net"` domain. You can configure the component to use that by providing the `RECAPTCHA_BASE_URL` token, for example:
-
-```javascript
-import { RECAPTCHA_BASE_URL } from 'ng-recaptcha';
-
-@NgModule({
-  providers: [
-    {
-      provide: RECAPTCHA_BASE_URL,
-      useValue: 'https://recaptcha.net/recaptcha/api.js', // use recaptcha.net script source for some of our users
-    },
-  ],
-}) export class MyModule { }
-```
-
-### <a name="example-csp-nonce"></a>Specifying nonce for Content-Security-Policy
-
-Per [reCAPTCHA FAQ on CSP](https://developers.google.com/recaptcha/docs/faq#im-using-content-security-policy-csp-on-my-website-how-can-i-configure-it-to-work-with-recaptcha), the recommended approach for that is to supply nonce to the script tag. This is possible by providing the `RECAPTCHA_NONCE` token, for example:
-
-```javascript
-import { RECAPTCHA_NONCE } from 'ng-recaptcha';
-
-@NgModule({
-  providers: [
-    {
-      provide: RECAPTCHA_NONCE,
-      useValue: '<YOUR_NONCE_VALUE>',
-    },
-  ],
-}) export class MyModule { }
 ```

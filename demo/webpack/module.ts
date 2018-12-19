@@ -1,5 +1,5 @@
-import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { resolve } from 'path';
+import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
+import * as path from 'path';
 
 export const moduleConfig = {
   rules: [
@@ -24,15 +24,16 @@ export const moduleConfig = {
     },
     {
       test: /\.css$/,
-      include: resolve(__dirname, 'src', 'app'),
-      use: 'raw-loader',
-    }, {
+      include: path.resolve(process.cwd(), 'src', 'app'),
+      loaders: ['to-string-loader', 'css-loader'],
+    },
+    {
       test: /\.css$/,
-      exclude: resolve(__dirname, 'src', 'app'),
-      use: [
-        { loader: MiniCssExtractPlugin.loader },
-        { loader: 'css-loader', options: { importLoaders: 1, modules: false } },
-      ],
+      exclude: path.resolve(process.cwd(), 'src', 'app'),
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader',
+      }),
     },
     {
       test: /\.svg$/,

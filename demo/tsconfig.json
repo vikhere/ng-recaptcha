@@ -17,6 +17,10 @@
   "include": [
     "src/**/*"
   ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "skipTemplateCodegen": false

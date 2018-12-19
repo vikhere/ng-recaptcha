@@ -11,7 +11,7 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 import { RecaptchaLoaderService } from './recaptcha-loader.service';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings } from './recaptcha-settings';
@@ -43,8 +43,6 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
   private widget: number;
   /** @internal */
   private grecaptcha: ReCaptchaV2.ReCaptcha;
-  /** @internal */
-  private executeRequested: boolean;
 
   constructor(
     private elementRef: ElementRef,
@@ -63,7 +61,7 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
 
   public ngAfterViewInit() {
     this.subscription = this.loader.ready.subscribe((grecaptcha: ReCaptchaV2.ReCaptcha) => {
-      if (grecaptcha != null && grecaptcha.render instanceof Function) {
+      if (grecaptcha != null) {
         this.grecaptcha = grecaptcha;
         this.renderRecaptcha();
       }
@@ -90,9 +88,6 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
 
     if (this.widget != null) {
       this.grecaptcha.execute(this.widget);
-    } else {
-      // delay execution of recaptcha until it actually renders
-      this.executeRequested = true;
     }
   }
 
@@ -115,7 +110,7 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
   }
 
   /** @internal */
-  private captchaResponseCallback(response: string) {
+  private captchaReponseCallback(response: string) {
     this.resolved.emit(response);
   }
 
@@ -131,7 +126,7 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
     this.widget = this.grecaptcha.render(this.elementRef.nativeElement, {
       badge: this.badge,
       callback: (response: string) => {
-        this.zone.run(() => this.captchaResponseCallback(response));
+        this.zone.run(() => this.captchaReponseCallback(response));
       },
       'expired-callback': () => {
         this.zone.run(() => this.expired());
@@ -142,10 +137,5 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
       theme: this.theme,
       type: this.type,
     });
-
-    if (this.executeRequested === true) {
-      this.executeRequested = false;
-      this.execute();
-    }
   }
 }
