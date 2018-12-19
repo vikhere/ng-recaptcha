@@ -1,3 +1,83 @@
+<a name="3.0.5"></a>
+## [3.0.5](https://github.com/DethAriel/ng-recaptcha/compare/v3.0.3...v3.0.5) (2018-04-27)
+
+
+### Bug Fixes
+
+* **rxjs:** change import of `of` operator ([3e0bda6](https://github.com/DethAriel/ng-recaptcha/commit/3e0bda6)), closes [#95](https://github.com/DethAriel/ng-recaptcha/issues/95)
+
+
+
+<a name="3.0.3"></a>
+## [3.0.3](https://github.com/DethAriel/ng-recaptcha/compare/v3.0.2...v3.0.3) (2017-12-26)
+
+
+### Bug Fixes
+
+* **component:** use ElementRef to access component's native element ([d3a8409](https://github.com/DethAriel/ng-recaptcha/commit/d3a8409)), closes [#48](https://github.com/DethAriel/ng-recaptcha/issues/48) [#68](https://github.com/DethAriel/ng-recaptcha/issues/68)
+
+
+
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/DethAriel/ng-recaptcha/compare/v3.0.1...v3.0.2) (2017-10-18)
+
+
+### Bug Fixes
+
+* **build:** fix AoT builds ([921be50](https://github.com/DethAriel/ng-recaptcha/commit/921be50)), closes [#57](https://github.com/DethAriel/ng-recaptcha/issues/57) [#65](https://github.com/DethAriel/ng-recaptcha/issues/65)
+
+
+
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/DethAriel/ng-recaptcha/compare/v3.0.0...v3.0.1) (2017-09-29)
+
+
+### Bug Fixes
+
+* **component:** Replace `OpaqueToken` with `InjectionToken` ([2b7db9b](https://github.com/DethAriel/ng-recaptcha/commit/2b7db9b))
+
+
+
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/DethAriel/ng-recaptcha/compare/v2.2.0...v3.0.0) (2017-08-30)
+
+
+### Bug Fixes
+
+* **component:** fix server-side rendering ([7a5bc6c](https://github.com/DethAriel/ng-recaptcha/commit/7a5bc6c)), closes [#34](https://github.com/DethAriel/ng-recaptcha/issues/34)
+
+
+### BREAKING CHANGES
+
+* **component:** Angular v2.x.x is no longer supported due to dependency on Platform capabilities that were added in [v4.0.0-rc.1](https://github.com/angular/angular/blob/master/CHANGELOG.md#features-20)
+
+
+
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/DethAriel/ng-recaptcha/compare/v2.1.1...v2.2.0) (2017-08-18)
+
+
+### Bug Fixes
+
+* **component:** ensure that component is destroyed safely ([1e51d56](https://github.com/DethAriel/ng-recaptcha/commit/1e51d56)), closes [#46](https://github.com/DethAriel/ng-recaptcha/issues/46)
+
+
+### Features
+
+* **component:** add the ability to specify component props globally ([8a7b22d](https://github.com/DethAriel/ng-recaptcha/commit/8a7b22d)), closes [#45](https://github.com/DethAriel/ng-recaptcha/issues/45)
+
+
+
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/DethAriel/ng-recaptcha/compare/v2.1.0...v2.1.1) (2017-05-02)
+
+
+### Bug Fixes
+
+* **component:** unblock protractor tests after `<re-captcha>` destruction ([a5f2fe9](https://github.com/DethAriel/ng-recaptcha/commit/a5f2fe9))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/DethAriel/ng-recaptcha/compare/v2.0.2...v2.1.0) (2017-05-01)
 

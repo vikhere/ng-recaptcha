@@ -4,18 +4,17 @@ import {
   ElementRef,
   EventEmitter,
   HostBinding,
+  Inject,
   Input,
   NgZone,
-  OnChanges,
   OnDestroy,
   Optional,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { RecaptchaDefaults } from './recaptcha-defaults';
 import { RecaptchaLoaderService } from './recaptcha-loader.service';
+import { RECAPTCHA_SETTINGS, RecaptchaSettings } from './recaptcha-settings';
 
 let nextId = 0;
 
@@ -24,7 +23,7 @@ let nextId = 0;
   selector: 're-captcha',
   template: ``,
 })
-export class RecaptchaComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class RecaptchaComponent implements AfterViewInit, OnDestroy {
   @Input()
   @HostBinding('attr.id')
   public id = `ngrecaptcha-${nextId++}`;
@@ -35,7 +34,6 @@ export class RecaptchaComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() public size: ReCaptchaV2.Size;
   @Input() public tabIndex: number;
   @Input() public badge: ReCaptchaV2.Badge;
-  @Input() public language: string;
 
   @Output() public resolved = new EventEmitter<string>();
 
@@ -47,53 +45,21 @@ export class RecaptchaComponent implements AfterViewInit, OnChanges, OnDestroy {
   private grecaptcha: ReCaptchaV2.ReCaptcha;
 
   constructor(
+    private elementRef: ElementRef,
     private loader: RecaptchaLoaderService,
     private zone: NgZone,
-    private container: ElementRef,
-    @Optional() defaults: RecaptchaDefaults,
+    @Optional() @Inject(RECAPTCHA_SETTINGS) settings?: RecaptchaSettings,
   ) {
-    if (defaults) {
-      this.siteKey = defaults.siteKey;
-      this.theme = defaults.theme;
-      this.type = defaults.type;
-      this.size = defaults.size;
-      this.tabIndex = defaults.tabIndex;
-      this.badge = defaults.badge;
-      this.language = defaults.language;
-    }
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    // tslint:disable-next-line:no-string-literal
-    const languageChange = changes['language'];
-    if (languageChange) {
-      if (this.loader.load instanceof Function) {
-        this.reset();
-        this.loader.load(languageChange.currentValue);
-      } else {
-        if (this.grecaptcha) {
-          console.warn('Changing recaptcha language is not supported. Implement a `load(newLanguage)` '
-            + 'function in your custom `RecaptchaLoaderService` implementation');
-        }
-      }
-    } else {
-      if (this.loader.reload instanceof Function) {
-        this.reset();
-        this.loader.reload();
-      } else {
-        if (this.grecaptcha) {
-          console.warn('Changing recaptcha properties is not supported. Implement a `reload()` '
-            + 'function in your custom `RecaptchaLoaderService` implementation');
-        }
-      }
+    if (settings) {
+      this.siteKey = settings.siteKey;
+      this.theme = settings.theme;
+      this.type = settings.type;
+      this.size = settings.size;
+      this.badge = settings.badge;
     }
   }
 
   public ngAfterViewInit() {
-    if (this.loader.load instanceof Function) {
-      // backwards-compatibility with custom loaders
-      this.loader.load(this.language);
-    }
     this.subscription = this.loader.ready.subscribe((grecaptcha: ReCaptchaV2.ReCaptcha) => {
       if (grecaptcha != null) {
         this.grecaptcha = grecaptcha;
@@ -106,7 +72,9 @@ export class RecaptchaComponent implements AfterViewInit, OnChanges, OnDestroy {
     // reset the captcha to ensure it does not leave anything behind
     // after the component is no longer needed
     this.grecaptchaReset();
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -142,7 +110,7 @@ export class RecaptchaComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   /** @internal */
-  private captchaResponseCallback(response: string) {
+  private captchaReponseCallback(response: string) {
     this.resolved.emit(response);
   }
 
@@ -155,15 +123,10 @@ export class RecaptchaComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   /** @internal */
   private renderRecaptcha() {
-    const element: HTMLElement = this.container.nativeElement;
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-
-    this.widget = this.grecaptcha.render(this.id, {
+    this.widget = this.grecaptcha.render(this.elementRef.nativeElement, {
       badge: this.badge,
       callback: (response: string) => {
-        this.zone.run(() => this.captchaResponseCallback(response));
+        this.zone.run(() => this.captchaReponseCallback(response));
       },
       'expired-callback': () => {
         this.zone.run(() => this.expired());

@@ -7,22 +7,22 @@
 
 A simple, configurable, easy-to-start component for handling reCAPTCHA.
 
-## RENAME NOTICE
-This project was renamed from `ng2-recaptcha` to `ng-recaptcha` due to Angular naming guidelines. Same happened to the `npm` package (old [ng2-recaptcha](https://www.npmjs.com/package/ng2-recaptcha) was deprecated in favor of new [ng-recaptcha](https://www.npmjs.com/package/ng-recaptcha))
-
 ## Table of contents
 1. [Installation](#installation)
 2. [Basic Usage](#example-basic)
+   * [Playground](#playground)
 3. [Working with `@angular/forms`](#forms-ready)
 4. [API](#api)
    * [Input Options](#api-options)
    * [Events](#api-events)
    * [Methods](#api-methods)
 5. [Examples](#examples)
+   * [Configuring the component globally](#example-global-config)
    * [Specifying a different language](#example-language)
    * [Loading the reCAPTCHA API by yourself](#example-preload-api)
    * [Usage with `required` in forms](#example-forms)
    * [Working with invisible reCAPTCHA](#example-invisible)
+   * [SystemJS configuration](#example-systemjs)
 
 ## <a name="installation"></a>Installation
 
@@ -38,6 +38,8 @@ To start with, you need to import the `RecaptchaModule` (more on that [later](#m
 ```typescript
 // app.module.ts
 import { RecaptchaModule } from 'ng-recaptcha';
+// if you need forms support:
+// import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 import { MyApp } from './app.component.ts';
 
@@ -47,6 +49,7 @@ import { MyApp } from './app.component.ts';
   imports: [
     BrowserModule,
     RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
+    // RecaptchaFormsModule, // if you need forms support
   ],
 })
 export class MyAppModule { }
@@ -76,6 +79,10 @@ import { MyAppModule } from './app.module.ts';
 platformBrowserDynamic().bootstrapModule(MyAppModule);
 ```
 
+### <a name="playground"></a>Playground
+
+You can also play with [this demo plunk](https://plnkr.co/edit/JNVNl0WJl3bFuWtt2O9i?p=preview) to get a feel of how this component can be used.
+
 ## <a name="forms-ready"></a>Working with `@angular/forms`
 
 There are two modules available for you:
@@ -104,9 +111,12 @@ The component supports this options:
 * `type`
 * `size`
 * `tabIndex`
+* `badge`
 
-They are all pretty well described in the [reCAPTCHA docs](https://developers.google.com/recaptcha/docs/display),
+They are all pretty well described either in the [reCAPTCHA docs](https://developers.google.com/recaptcha/docs/display), or in the [invisible reCAPTCHA docs](https://developers.google.com/recaptcha/docs/invisible),
 so I won't duplicate it here.
+
+Besides specifying these options on the component itself, you can provide a global `<re-captcha>` configuration - see [Configuring the component globally](#example-global-config) section below.
 
 ### <a name="api-events"></a>Events
 
@@ -124,6 +134,26 @@ validation failed, and you need the user to re-enter the captcha.
 * `execute()`. Executes the invisible recaptcha. Does nothing if component's size is not set to "invisible". See [Invisible reCAPTCHA developers guide](https://developers.google.com/recaptcha/docs/invisible#js_api) for more information.
 
 ## <a name="examples"></a>Examples
+
+### <a name="example-global-config"></a>Configuring the component globally [(see in action)](https://dethariel.github.io/ng-recaptcha/global-config)
+
+Some properties are global - including `siteKey`, `size`, and others. You can provide them at the module-level using the `RECAPTCHA_SETTINGS` provider:
+
+```typescript
+import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+
+@NgModule({
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: { siteKey: '<YOUR_KEY>' } as RecaptchaSettings,
+    },
+  ],
+}) export class MyModule { }
+```
+
+Global properties can be overridden on a case-by-case basis - the values on the `<re-captcha>` component itself take precedence over global settings.
+
 ### <a name="example-language"></a>Specifying a different language [(see in action)](https://dethariel.github.io/ng-recaptcha/language)
 
 `<re-captcha>` supports various languages. By default recaptcha will guess the user's language itself
@@ -214,6 +244,28 @@ add the `required` attribute to the `<re-captcha>` element. Do not forget to imp
 }
 ```
 
+A similar approach can be taken for reactive forms:
+
+```typescript
+@Component({
+  selector: 'my-reactive-form',
+  template: `
+    <form [formGroup]="reactiveForm">
+      <re-captcha formControlName="recaptchaReactive"></re-captcha>
+      <button [disabled]="reactiveForm.invalid">Submit</button>
+    </form>
+  `,
+}) export class MyReactiveForm {
+  reactiveForm: FormGroup;
+
+  ngOnInit() {
+    this.reactiveForm = new FormGroup({
+      recaptchaReactive: new FormControl(null, Validators.required)
+    });
+  }
+}
+```
+
 ### <a name="example-invisible"></a>Working with invisible reCAPTCHA [(see in action)](https://dethariel.github.io/ng-recaptcha/invisible)
 
 Working with [invisible reCAPTCHA](https://developers.google.com/recaptcha/docs/invisible) is almost the same as with regular one.
@@ -254,4 +306,25 @@ Normally you would only submit a form when recaptcha response has been received.
     });
   }
 }
+```
+
+### <a name="example-systemjs"></a>SystemJS configuration
+
+To configure the package to work with SystemJS, you would configure it approximately like that (assuming you've installed `ng-recaptcha` using `npm`):
+
+```javascript
+// SystemJS config file
+(function () {
+  System.config({
+    paths: {
+      'npm:': '/node_modules/',
+    },
+    map: {
+      'ng-recaptcha': 'npm:ng-recaptcha',
+    },
+    packages: {
+      'ng-recaptcha': { main: './index.js' },
+    },
+  });
+})();
 ```
