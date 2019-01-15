@@ -1,11 +1,12 @@
 import { InjectionToken } from '@angular/core';
+import { ReCaptchaBadge, ReCaptchaSize, ReCaptchaTheme, ReCaptchaType } from './grecaptcha';
 
 export const RECAPTCHA_SETTINGS = new InjectionToken<RecaptchaSettings>('recaptcha-settings');
 
 export interface RecaptchaSettings {
   siteKey?: string;
-  theme?: ReCaptchaV2.Theme;
-  type?: ReCaptchaV2.Type;
-  size?: ReCaptchaV2.Size;
-  badge?: ReCaptchaV2.Badge;
+  theme?: ReCaptchaTheme;
+  type?: ReCaptchaType;
+  size?: ReCaptchaSize;
+  badge?: ReCaptchaBadge;
 }

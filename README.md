@@ -28,7 +28,7 @@ A simple, configurable, easy-to-start component for handling reCAPTCHA.
 
 The easiest way is to install trough [npm](https://www.npmjs.com/package/ng-recaptcha):
 ```
-npm i ng-recaptcha --save
+npm i ng-recaptchav3 --save
 ```
 
 ## <a name="example-basic"></a>Basic Usage [(see in action)](https://dethariel.github.io/ng-recaptcha/)
@@ -39,7 +39,7 @@ To start with, you need to import the `RecaptchaModule` (more on that [later](#m
 // app.module.ts
 import { RecaptchaModule } from 'ng-recaptcha';
 // if you need forms support:
-// import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+// import { RecaptchaFormsModule } from 'ng-recaptchav3/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 import { MyApp } from './app.component.ts';
 
@@ -88,8 +88,8 @@ You can also play with [this demo plunk](https://plnkr.co/edit/JNVNl0WJl3bFuWtt2
 There are two modules available for you:
 
 ```typescript
-import { RecaptchaModule } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { RecaptchaModule } from 'ng-recaptchav3';
+import { RecaptchaFormsModule } from 'ng-recaptchav3/forms';
 ```
 
 If you want your `<re-captcha>` element to work correctly with `[(ngModel)]` directive,
@@ -140,7 +140,7 @@ validation failed, and you need the user to re-enter the captcha.
 Some properties are global - including `siteKey`, `size`, and others. You can provide them at the module-level using the `RECAPTCHA_SETTINGS` provider:
 
 ```typescript
-import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptchav3';
 
 @NgModule({
   providers: [
@@ -163,7 +163,7 @@ The language setting is global, though, and cannot be set on a per-captcha basis
 It can be provided like this:
 
 ```typescript
-import { RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
+import { RECAPTCHA_LANGUAGE } from 'ng-recaptchav3';
 
 @NgModule({
   providers: [
@@ -200,7 +200,7 @@ The below code snippet is an example of how such a provider can be implemented.
 ```
 
 ```typescript
-import { RecaptchaLoaderService } from 'ng-recaptcha';
+import { RecaptchaLoaderService } from 'ng-recaptchav3';
 
 @Injectable()
 export class PreloadedRecaptchaAPIService {
@@ -225,7 +225,7 @@ export class PreloadedRecaptchaAPIService {
 ### <a name="example-forms"></a>Usage with `required` in forms [(see in action)](https://dethariel.github.io/ng-recaptcha/forms)
 
 It's very easy to put `<re-captcha>` in an Angular form and have it `require`d - just
-add the `required` attribute to the `<re-captcha>` element. Do not forget to import `RecaptchaFormsModule` from `'ng-recaptcha/forms'`!
+add the `required` attribute to the `<re-captcha>` element. Do not forget to import `RecaptchaFormsModule` from `'ng-recaptchav3/forms'`!
 
 ```typescript
 @Component({
@@ -320,10 +320,10 @@ To configure the package to work with SystemJS, you would configure it approxima
       'npm:': '/node_modules/',
     },
     map: {
-      'ng-recaptcha': 'npm:ng-recaptcha',
+      'ng-recaptchav3': 'npm:ng-recaptchav3',
     },
     packages: {
-      'ng-recaptcha': { main: './index.js' },
+      'ng-recaptchav3': { main: './index.js' },
     },
   });
 })();

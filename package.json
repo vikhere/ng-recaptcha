@@ -1,6 +1,6 @@
 {
-  "name": "ng-recaptcha",
-  "version": "3.0.5",
+  "name": "ng-recaptchav3",
+  "version": "3.0.6",
   "description": "Angular component for Google reCAPTCHA",
   "scripts": {
     "demo": "yarn demo:serve",
@@ -25,29 +25,29 @@
   "typings": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DethAriel/ng-recaptcha"
+    "url": "git+https://github.com/vikhere/ng-recaptcha.git"
   },
   "keywords": [
     "angular",
     "recaptcha",
     "angular-recaptcha",
-    "ng-recaptcha"
+    "ng-recaptchav3",
+    "recaptchav3"
   ],
-  "author": "Ruslan Arkhipau <dethariel@gmail.com>",
+  "author": "Ruslan Arkhipau <dethariel@gmail.com>, Vikash Singh<singhvkash@gmail.com>",
   "license": "MIT",
-  "optionalDependencies": {
-    "@types/grecaptcha": "^2.0.33"
-  },
+  "optionalDependencies": {},
   "peerDependencies": {
-    "@angular/core": "^4.0.0 || ^5.0.0-beta.1"
+    "@angular/core": "^4.4.7"
   },
   "devDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
+    "@angular/cli": "^1.6.2",
+    "@angular/common": "^4.4.7",
+    "@angular/compiler": "^4.4.7",
+    "@angular/compiler-cli": "^4.4.7",
+    "@angular/core": "^4.4.7",
+    "@angular/forms": "^4.4.7",
+    "@angular/platform-browser": "^4.4.7",
     "@types/core-js": "^0.9.39",
     "angular-precommit": "^1.0.3",
     "codelyzer": "^3.0.1",
@@ -63,5 +63,9 @@
     "typescript": "^2.2.1",
     "zone.js": "^0.8.5"
   },
-  "homepage": "https://github.com/DethAriel/ng-recaptcha#readme"
+  "homepage": "https://github.com/vikhere/ng-recaptcha#readme",
+  "bugs": {
+    "url": "https://github.com/vikhere/ng-recaptcha/issues"
+  },
+  "dependencies": {}
 }

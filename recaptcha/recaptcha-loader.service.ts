@@ -9,8 +9,17 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { ReCaptcha } from './grecaptcha';
 
 export const RECAPTCHA_LANGUAGE = new InjectionToken<string>('recaptcha-language');
+declare const grecaptcha: ReCaptcha;
+
+declare global {
+  interface Window {
+    grecaptcha: ReCaptcha;
+    ngRecaptchaLoaded: () => void;
+  }
+}
 
 @Injectable()
 export class RecaptchaLoaderService {
@@ -18,9 +27,9 @@ export class RecaptchaLoaderService {
    * @internal
    * @nocollapse
    */
-  private static ready: BehaviorSubject<ReCaptchaV2.ReCaptcha> = null;
+  private static ready: BehaviorSubject<ReCaptcha> = null;
 
-  public ready: Observable<ReCaptchaV2.ReCaptcha>;
+  public ready: Observable<ReCaptcha>;
 
   /** @internal */
   private language: string;
@@ -41,14 +50,14 @@ export class RecaptchaLoaderService {
       return;
     }
     if (isPlatformBrowser(this.platformId)) {
-      window.ng2recaptchaloaded = () => {
+      window.ngRecaptchaLoaded = () => {
         RecaptchaLoaderService.ready.next(grecaptcha);
       };
-      RecaptchaLoaderService.ready = new BehaviorSubject<ReCaptchaV2.ReCaptcha>(null);
+      RecaptchaLoaderService.ready = new BehaviorSubject<ReCaptcha>(null);
       const script = document.createElement('script') as HTMLScriptElement;
       script.innerHTML = '';
       const langParam = this.language ? '&hl=' + this.language : '';
-      script.src = `https://www.google.com/recaptcha/api.js?render=explicit&onload=ng2recaptchaloaded${langParam}`;
+      script.src = `https://www.google.com/recaptcha/api.js?render=explicit&onload=ngRecaptchaLoaded${langParam}`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);

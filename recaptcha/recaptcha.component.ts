@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
+import { ReCaptcha, ReCaptchaBadge, ReCaptchaSize, ReCaptchaTheme, ReCaptchaType } from './grecaptcha';
 import { RecaptchaLoaderService } from './recaptcha-loader.service';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings } from './recaptcha-settings';
 
@@ -29,11 +30,12 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
   public id = `ngrecaptcha-${nextId++}`;
 
   @Input() public siteKey: string;
-  @Input() public theme: ReCaptchaV2.Theme;
-  @Input() public type: ReCaptchaV2.Type;
-  @Input() public size: ReCaptchaV2.Size;
+  @Input() public theme: ReCaptchaTheme;
+  @Input() public type: ReCaptchaType;
+  @Input() public size: ReCaptchaSize;
   @Input() public tabIndex: number;
-  @Input() public badge: ReCaptchaV2.Badge;
+  @Input() public badge: ReCaptchaBadge;
+  @Input() public actionName?: string;
 
   @Output() public resolved = new EventEmitter<string>();
 
@@ -42,7 +44,7 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
   /** @internal */
   private widget: number;
   /** @internal */
-  private grecaptcha: ReCaptchaV2.ReCaptcha;
+  private grecaptcha: ReCaptcha;
 
   constructor(
     private elementRef: ElementRef,
@@ -60,7 +62,7 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit() {
-    this.subscription = this.loader.ready.subscribe((grecaptcha: ReCaptchaV2.ReCaptcha) => {
+    this.subscription = this.loader.ready.subscribe((grecaptcha: ReCaptcha) => {
       if (grecaptcha != null) {
         this.grecaptcha = grecaptcha;
         this.renderRecaptcha();
@@ -87,7 +89,11 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
     }
 
     if (this.widget != null) {
-      this.grecaptcha.execute(this.widget);
+      if (this.actionName) {
+        this.grecaptcha.execute(this.widget, {action: this.actionName});
+      } else {
+        this.grecaptcha.execute(this.widget);
+      }
     }
   }
 
