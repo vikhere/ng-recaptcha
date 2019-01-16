@@ -1,6 +1,6 @@
 {
   "name": "ng-recaptchav3",
-  "version": "3.0.6",
+  "version": "4.0.0",
   "description": "Angular component for Google reCAPTCHA",
   "scripts": {
     "demo": "yarn demo:serve",
