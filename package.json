@@ -1,6 +1,6 @@
 {
   "name": "ng-recaptchav3",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Angular component for Google reCAPTCHA",
   "scripts": {
     "demo": "yarn demo:serve",
@@ -13,7 +13,7 @@
     "changelog": "conventional-changelog --preset angular --infile CHANGELOG.md --same-file",
     "github-release": "conventional-github-releaser --preset angular",
     "version": "yarn changelog && git add CHANGELOG.md",
-    "postversion": "git push && git push --tags && run-s github-release pub",
+    "postversion": "git push && git push --tags && run-s n pub",
     "lint:prod": "tslint --project ./tsconfig.json --type-check",
     "lint": "yarn lint:prod --force",
     "build": "run-s clean lint:prod transpile",
