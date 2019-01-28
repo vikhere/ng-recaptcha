@@ -1,3 +1,8 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/vikhere/ng-recaptcha/compare/v4.2.1...v4.0.1) (2019-01-28)
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/vikhere/ng-recaptcha/compare/v4.2.1...v4.0.0) (2019-01-16)
 

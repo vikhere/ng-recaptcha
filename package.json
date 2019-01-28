@@ -1,6 +1,6 @@
 {
   "name": "ng-recaptchav3",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Angular component for Google reCAPTCHA",
   "scripts": {
     "demo": "yarn demo:serve",
@@ -17,7 +17,7 @@
     "lint:prod": "tslint --project ./tsconfig.json --type-check",
     "lint": "yarn lint:prod --force",
     "build": "run-s clean lint:prod transpile",
-    "pub": "run-s build publish demo:publish",
+    "pub": "run-s build publish",
     "publish": "npm publish",
     "prepush": "yarn lint:prod"
   },
