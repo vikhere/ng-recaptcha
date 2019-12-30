@@ -1,0 +1,22 @@
+{
+  "npmScope": "recaptcha",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "demo": {
+      "tags": []
+    },
+    "ng-recaptchav3": {
+      "tags": [
+        "recaptchav3",
+        "invisible recaptcha",
+        "recaptchav2"
+      ]
+    }
+  }
+}

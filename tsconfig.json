@@ -1,10 +1,43 @@
 {
-  "extends": "./tsconfig.base.json",
+  "allowSyntheticDefaultImports": true,
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "ng-recaptcha": [
+        "./libs/recaptcha/src/index.ts"
+      ],
+      "ng-recaptcha/forms": [
+        "./libs/recaptcha/src/forms.ts"
+      ],
+      "lodash/*": [
+        "node_modules/@types/lodash-es/*"
+      ]
+    }
+  },
   "exclude": [
     "node_modules",
-    "demo"
-  ],
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": true
-  }
+    "tmp"
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "jest"
+    ]
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "types": [
+    "node",
+    "jest"
+  ]
+}
