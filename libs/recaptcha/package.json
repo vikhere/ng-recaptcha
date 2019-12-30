@@ -1,6 +1,6 @@
 {
   "name": "ng-recaptchav3",
-  "version": "8.0.0-beta-0",
+  "version": "8.0.0",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"
