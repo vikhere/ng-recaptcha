@@ -1,0 +1,27 @@
+{
+  "name": "ng-recaptchav3",
+  "version": "8.0.0-beta-0",
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikhere/ng-recaptcha.git"
+  },
+  "keywords": [
+    "angular",
+    "recaptcha",
+    "angular-recaptcha",
+    "ng-recaptchav3",
+    "recaptchav3"
+  ],
+  "author": "Vikash Singh",
+  "license": "MIT",
+  "description": "",
+  "main": "jest.config.js",
+  "homepage": "https://github.com/vikhere/ng-recaptcha#readme",
+  "bugs": {
+    "url": "https://github.com/vikhere/ng-recaptcha/issues"
+  }
+}

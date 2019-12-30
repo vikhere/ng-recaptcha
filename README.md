@@ -306,25 +306,4 @@ Normally you would only submit a form when recaptcha response has been received.
     });
   }
 }
-```
 
-### <a name="example-systemjs"></a>SystemJS configuration
-
-To configure the package to work with SystemJS, you would configure it approximately like that (assuming you've installed `ng-recaptcha` using `npm`):
-
-```javascript
-// SystemJS config file
-(function () {
-  System.config({
-    paths: {
-      'npm:': '/node_modules/',
-    },
-    map: {
-      'ng-recaptchav3': 'npm:ng-recaptchav3',
-    },
-    packages: {
-      'ng-recaptchav3': { main: './index.js' },
-    },
-  });
-})();
-```
