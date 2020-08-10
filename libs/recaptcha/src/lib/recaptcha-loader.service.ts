@@ -52,6 +52,7 @@ export class RecaptchaLoaderService {
     script.src = `https://www.google.com/recaptcha/api.js?render=explicit&onload=ngRecaptchaLoaded${langParam}`;
     script.async = true;
     script.defer = true;
+    script.setAttribute('nonce', '');
     document.head.appendChild(script);
   }
 }
