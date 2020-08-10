@@ -27,6 +27,7 @@ export const PAGE_SETTINGS = new InjectionToken<PageSettings>('PAGE_SETTINGS');
 export const NAV_LINKS = new InjectionToken<NavLink[]>('NAV_LINKS');
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'recaptcha-demo-wrapper',
   styleUrls: [
     './recaptcha-demo-wrapper.component.css'

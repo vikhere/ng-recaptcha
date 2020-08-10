@@ -5,6 +5,7 @@ export interface FormModel {
 }
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'recaptcha-demo',
   styles: [`
       .error { color: crimson; }
