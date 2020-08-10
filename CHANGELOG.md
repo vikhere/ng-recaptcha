@@ -1,3 +1,12 @@
+# [8.0.0-beta.0](https://github.com/vikhere/ng-recaptcha/compare/v8.0.0...v8.0.0-beta.0) (2020-08-10)
+
+
+### Bug Fixes
+
+* safari connection to recaptcha error and iphone 5 ([56f08b6](https://github.com/vikhere/ng-recaptcha/commit/56f08b6fc09c0b7c2178785b4cbd467dd44406ce))
+
+
+
 <a name="8.0.0"></a>
 ## [8.0.0](https://github.com/vikhere/ng-recaptcha/compare/v4.0.1...v8.0.0) (2019-12-30)
 
